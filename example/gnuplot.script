@@ -1,0 +1,12 @@
+set terminal pngcairo enhanced font 'Arial,11'
+set output "cluster_plot.png"
+set title "FCM clustering"
+set xlabel "x-coordinate"
+set ylabel "y-coordinate"
+set xrange [0.000000 : 4993.000000]
+set yrange [0.000000 : 5986.000000]
+plot 'cluster.0' using 1:2 with points pt 7 ps 1 lc 1 notitle,\
+'cluster.1' using 1:2 with points  pt 7 ps 1 lc 2 notitle,\
+'cluster.2' using 1:2 with points  pt 7 ps 1 lc 3 notitle,\
+'cluster.3' using 1:2 with points  pt 7 ps 1 lc 4 notitle,\
+'cluster.4' using 1:2 with points  pt 7 ps 1 lc 5 notitle
