@@ -8,17 +8,17 @@ In this project, we Implement the Fuzzy c-Means Algorithm. For further details, 
 
 There are two separate programs in this project. They are:
 
-# Program `fcm.c`
+## Program `fcm.c`
 
 This is an implementation of the Fuzzy C-Means Algorithm. It expects an input data file in the following
 format.
 
-<number of data-points>
-<number of clusters>
-<number of dimensions>
-<fuzzyness coefficient>
-<termination criterion>
-<data points> ...
+    <number of data-points>
+    <number of clusters>
+    <number of dimensions>
+    <fuzzyness coefficient>
+    <termination criterion>
+    <data points> ...
 
 For example, the following is a valid input file:
 
@@ -34,17 +34,19 @@ criterion (accuracy of the clustering) is 0.00005. For each
 of the 10 points, there are two values for each of the
 two dimensions. Hence, there are 20 data points listed.
 
-# Program `gen.c`
+## Program `gen.c`
 
 Since it is tedious to generate the data points by hand,
 the gen program generates the data points automatically.
 In order to use this program, provide a filename which will
 be used for storing the input data for running fcm later.
 
-# Usage
+## Usage
 
 An example run of the above two programs will be (in sequence)
 
+    $ cd fcm
+    $ make
     $ ./gen input.dat
     $ ./fcm input.dat
 
