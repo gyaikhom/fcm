@@ -1,0 +1,11 @@
+cluster.*
+cluster_plot.png
+fcm
+fcm.o
+gen
+gen.o
+gnuplot.script
+membership.matrix
+*.txt
+
+
