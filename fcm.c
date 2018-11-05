@@ -1,23 +1,25 @@
-#define MAX_DATA_POINTS 10000
-#define MAX_CLUSTER 100
-#define MAX_DATA_DIMENSION 5
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-int num_data_points;
-int num_clusters;
-int num_dimensions;
+#include <math.h>
+#include "fcm.h"
+//#define MAX_DATA_POINTS 10000
+//#define MAX_CLUSTER 100
+//#define MAX_DATA_DIMENSION 5
+/*
+long num_data_points;
+long num_clusters;
+long num_dimensions;
 double low_high[MAX_DATA_DIMENSION][2];
 double degree_of_memb[MAX_DATA_POINTS][MAX_CLUSTER];
 double epsilon;
 double fuzziness;
 double data_point[MAX_DATA_POINTS][MAX_DATA_DIMENSION];
 double cluster_centre[MAX_CLUSTER][MAX_DATA_DIMENSION];
+*/
 
-int
-init(char *fname) {
+long
+fcm_init(char *fname) {
     int i, j, r, rval;
     FILE *f;
     double s;
@@ -76,8 +78,8 @@ failure:
     exit(1);
 }
 
-int
-calculate_centre_vectors() {
+long
+fcm_calculate_centre_vectors() {
     int i, j, k;
     double numerator, denominator;
     double t[MAX_DATA_POINTS][MAX_CLUSTER];
@@ -101,7 +103,7 @@ calculate_centre_vectors() {
 }
 
 double
-get_norm(int i, int j) {
+fcm_get_norm(int i, int j) {
     int k;
     double sum = 0.0;
     for (k = 0; k < num_dimensions; k++) {
@@ -111,13 +113,13 @@ get_norm(int i, int j) {
 }
 
 double
-get_new_value(int i, int j) {
+fcm_get_new_value(int i, int j) {
     int k;
     double t, p, sum;
     sum = 0.0;
     p = 2 / (fuzziness - 1);
     for (k = 0; k < num_clusters; k++) {
-        t = get_norm(i, j) / get_norm(i, k);
+        t = fcm_get_norm(i, j) / fcm_get_norm(i, k);
         t = pow(t, p);
         sum += t;
     }
@@ -125,13 +127,13 @@ get_new_value(int i, int j) {
 }
 
 double
-update_degree_of_membership() {
+fcm_update_degree_of_membership() {
     int i, j;
     double new_uij;
     double max_diff = 0.0, diff;
     for (j = 0; j < num_clusters; j++) {
         for (i = 0; i < num_data_points; i++) {
-            new_uij = get_new_value(i, j);
+            new_uij = fcm_get_new_value(i, j);
             diff = new_uij - degree_of_memb[i][j];
             if (diff > max_diff)
                 max_diff = diff;
@@ -141,19 +143,19 @@ update_degree_of_membership() {
     return max_diff;
 }
 
-int
-fcm(char *fname) {
+long
+fcm_fcm(char *fname) {
     double max_diff;
-    init(fname);
+    fcm_init(fname);
     do {
-        calculate_centre_vectors();
-        max_diff = update_degree_of_membership();
+        fcm_calculate_centre_vectors();
+        max_diff = fcm_update_degree_of_membership();
     } while (max_diff > epsilon);
     return 0;
 }
 
-int
-gnuplot_membership_matrix() {
+long
+fcm_gnuplot_membership_matrix() {
     int i, j, cluster;
     char fname[100];
     double highest;
@@ -221,7 +223,7 @@ gnuplot_membership_matrix() {
 }
 
 void
-print_data_points(char *fname) {
+fcm_print_data_points(char *fname) {
     int i, j;
     FILE *f;
     if (fname == NULL)
@@ -243,7 +245,7 @@ print_data_points(char *fname) {
 }
 
 void
-print_membership_matrix(char *fname) {
+fcm_print_membership_matrix(char *fname) {
     int i, j;
     FILE *f;
     if (fname == NULL)
@@ -264,35 +266,3 @@ print_membership_matrix(char *fname) {
         fclose(f);
 }
 
-int
-main(int argc, char **argv) {
-    printf
-            ("------------------------------------------------------------------------\n");
-    if (argc != 2) {
-        printf("USAGE: fcm <input file>\n");
-        exit(1);
-    }
-    fcm(argv[1]);
-    printf("Number of data points: %d\n", num_data_points);
-    printf("Number of clusters: %d\n", num_clusters);
-    printf("Number of data-point dimensions: %d\n", num_dimensions);
-    printf("Accuracy margin: %lf\n", epsilon);
-    print_membership_matrix("membership.matrix");
-    gnuplot_membership_matrix();
-    printf
-            ("------------------------------------------------------------------------\n");
-    printf("The program run was successful...\n");
-    printf("Storing membership matrix in file 'membership.matrix'\n\n");
-    printf("If the points are on a plane (2 dimensions)\n");
-    printf("the gnuplot script was generated in file 'gnuplot.script', and\n");
-    printf("the gnuplot data in files cluster.[0]... \n\n");
-    printf
-            ("Process 'gnuplot.script' to generate graph: 'cluster_plot.png'\n\n");
-    printf
-            ("NOTE: While generating the gnuplot data, for each of the data points\n");
-    printf("the corresponding cluster is the one which has the highest\n");
-    printf("degree-of-membership as found in 'membership.matrix'.\n");
-    printf
-            ("------------------------------------------------------------------------\n");
-    return 0;
-}

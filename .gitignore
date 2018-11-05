@@ -1,12 +1,17 @@
+# FCM 
 cluster.*
 cluster_plot.png
 fcm
-fcm.o
+*.o
 gen
-gen.o
 gnuplot.script
 membership.matrix
 *.txt
 *.dat
 
+# tests and cov
+covapp
+testapp
 
+# others
+*.swp
