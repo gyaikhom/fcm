@@ -1,7 +1,6 @@
 Fuzzy c-Means Algorithm
 ===
-
-[![Build Status](https://semaphoreci.com/api/v1/ahmad88me/fcm/branches/aslib/badge.svg)](https://semaphoreci.com/ahmad88me/fcm)
+[![Build Status](https://semaphoreci.com/api/v1/ahmad88me/fcm/branches/master/badge.svg)](https://semaphoreci.com/ahmad88me/fcm)
 [![codecov](https://codecov.io/gh/ahmad88me/fcm/branch/master/graph/badge.svg)](https://codecov.io/gh/ahmad88me/fcm)
 
 A clustering algorithm organises items into groups based on a similarity criteria. The Fuzzy c-Means algorithm is a clustering algorithm where each item may belong to more than one group (hence the word fuzzy), where the degree of membership for each item is given by a probability distribution over the clusters.
