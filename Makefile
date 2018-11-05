@@ -1,7 +1,7 @@
 #CC=gcc
 CC=g++
 #LIB=-lm
-LIB = 
+LIB = -pthread 
 CFLAGS=-O2
 NOMSOURCES = fcm.c 
 SOURCES = $(NOMSOURCES) main.c

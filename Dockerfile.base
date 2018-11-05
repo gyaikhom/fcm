@@ -1,0 +1,8 @@
+FROM ubuntu:latest
+
+RUN mkdir -p app
+WORKDIR /app
+
+COPY scripts/setup.sh /app/setup.sh
+RUN sh setup.sh
+RUN rm setup.sh
