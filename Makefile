@@ -47,17 +47,17 @@ codecov:
 	$(MAKE) covnoclean
 	curl -s https://codecov.io/bash > codecovpush.sh
 	chmod +x codecovpush.sh
-	./codecovpush.sh
+	#./codecovpush.sh
 	rm codecovpush.sh
 	#$(MAKE) clean
 
 clean:
-	-rm covapp
-	-rm testapp
-	-rm -f *.dat
-	-rm -f *.txt
-	-rm -f fcm gen
-	-rm -f *.o
-	-rm -f *~
-	-rm -Rf gcov.css snow.png ruby.png *.gcov  *.gcda *.gcno index-sort-f.html index-sort-l.html index.html \
+	$(RM) covapp
+	$(RM) testapp
+	$(RM) *.dat
+	$(RM) *.txt
+	$(RM) fcm gen
+	$(RM) *.o
+	$(RM) *~
+	$(RM)  gcov.css snow.png ruby.png *.gcov  *.gcda *.gcno index-sort-f.html index-sort-l.html index.html \
 				amber.png glass.png updown.png coverage.info emerald.png Users usr v1\
