@@ -49,9 +49,11 @@ codecov:
 	chmod +x codecovpush.sh
 	./codecovpush.sh
 	rm codecovpush.sh
-	$(MAKE) clean
+	#$(MAKE) clean
 
 clean:
+	-rm covapp
+	-rm testapp
 	-rm -f *.dat
 	-rm -f *.txt
 	-rm -f fcm gen
