@@ -45,11 +45,11 @@ cov:
 
 codecov:
 	$(MAKE) covnoclean
-	#curl -s https://codecov.io/bash > codecovpush.sh
-	#chmod +x codecovpush.sh
-	#./codecovpush.sh
-	#rm codecovpush.sh
-	#$(MAKE) clean
+	curl -s https://codecov.io/bash > codecovpush.sh
+	chmod +x codecovpush.sh
+	./codecovpush.sh
+	rm codecovpush.sh
+	$(MAKE) clean
 
 clean:
 	$(RM) covapp
