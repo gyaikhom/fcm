@@ -1,6 +1,6 @@
 FROM ahmad88me/fcm:latest
 
-RUN mkdir -p app
+RUN mkdir -p /app
 WORKDIR /app
 
 COPY scripts /app/scripts
