@@ -1,9 +1,9 @@
 #CC=gcc
 CC=g++
 #LIB=-lm
-LIB = -pthread 
-CFLAGS=-O2
-NOMSOURCES = fcm.c 
+LIB = -pthread  
+CFLAGS=-O2 -I /usr/local/include/eigen3
+NOMSOURCES = fcm.cpp
 SOURCES = $(NOMSOURCES) main.c
 TSOURCES = $(NOMSOURCES) tests.cpp
 
@@ -20,8 +20,8 @@ gen.o : gen.c
 a.out : fcm.o
 	${CC} ${CFLAGS} -o a.out fcm.o ${LIB}
 
-fcm.o : fcm.c
-	${CC} ${CFLAGS} -c fcm.c
+fcm.o : fcm.cpp
+	${CC} ${CFLAGS} -c fcm.cpp
 
 .PHONY: clean test cov covnoclean codecov
 
@@ -32,7 +32,7 @@ test:
 	$(MAKE) clean
 
 covnoclean:
-	$(CC) -c -fprofile-arcs -ftest-coverage -fPIC fcm.c tests.cpp
+	$(CC) -c -fprofile-arcs -ftest-coverage -fPIC fcm.cpp tests.cpp
 	$(CC) -o covapp  -fprofile-arcs -ftest-coverage fcm.o tests.o $(TLIBS) 
 	./covapp
 	lcov --directory . --capture --output-file coverage.info
