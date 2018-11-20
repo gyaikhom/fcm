@@ -7,16 +7,16 @@
 //#define MAX_CLUSTER 100
 //#define MAX_DATA_DIMENSION 5
 /*
-long num_data_points;
-long num_clusters;
-long num_dimensions;
-double low_high[MAX_DATA_DIMENSION][2];
-double degree_of_memb[MAX_DATA_POINTS][MAX_CLUSTER];
-double epsilon;
-double fuzziness;
-double data_point[MAX_DATA_POINTS][MAX_DATA_DIMENSION];
-double cluster_centre[MAX_CLUSTER][MAX_DATA_DIMENSION];
-*/
+   long num_data_points;
+   long num_clusters;
+   long num_dimensions;
+   double low_high[MAX_DATA_DIMENSION][2];
+   double degree_of_memb[MAX_DATA_POINTS][MAX_CLUSTER];
+   double epsilon;
+   double fuzziness;
+   double data_point[MAX_DATA_POINTS][MAX_DATA_DIMENSION];
+   double cluster_centre[MAX_CLUSTER][MAX_DATA_DIMENSION];
+ */
 
 long
 fcm_init(char *fname) {
