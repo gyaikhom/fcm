@@ -2,12 +2,15 @@
 CC=g++
 #LIB=-lm
 LIB = -pthread  
-CFLAGS=-O2 -I /usr/local/include/eigen3
+#CFLAGS=-O2 -I /usr/local/include/eigen3
+#CFLAGS= -I /usr/local/include/eigen3
+CFLAGS= -I /usr/local/include/eigen3 -Wzero-as-null-pointer-constant
 NOMSOURCES = fcm.cpp
 SOURCES = $(NOMSOURCES) main.c
 TSOURCES = $(NOMSOURCES) tests.cpp
 
-TLIBS = $(LIB) -lgtest
+#TLIBS = $(LIB) -lgtest
+TLIBS = $(LIB) -lgtest -Wzero-as-null-pointer-constant
 
 all :  gen fcm
 
@@ -32,7 +35,7 @@ test:
 	$(MAKE) clean
 
 covnoclean:
-	$(CC) -c -fprofile-arcs -ftest-coverage -fPIC fcm.cpp tests.cpp
+	$(CC) ${CFLAGS}  -c -fprofile-arcs -ftest-coverage -fPIC fcm.cpp tests.cpp
 	$(CC) -o covapp  -fprofile-arcs -ftest-coverage fcm.o tests.o $(TLIBS) 
 	./covapp
 	lcov --directory . --capture --output-file coverage.info
