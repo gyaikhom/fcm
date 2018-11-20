@@ -15,3 +15,7 @@ testapp
 
 # others
 *.swp
+
+#mac 
+.DS_Store
+
