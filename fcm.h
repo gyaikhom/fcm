@@ -38,7 +38,7 @@ class FCM{
     MatrixXf * m_data;
     MatrixXf * m_cluster_center;
 
-    void init_centers();
+//    void init_centers();
 };
 
 #endif

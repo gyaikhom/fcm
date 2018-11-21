@@ -32,21 +32,22 @@ namespace {
         EXPECT_EQ(1,1);
     }
 
-//    TEST(FCMTest, TestFCMComputeMembership) {
-//        FCM *fcm;
-//        fcm = new FCM(2, 0.5);
-//        MatrixXf* data;
-//        data = new MatrixXf;
-//        data->resize(4,3);
-//        (*data) <<  1.0, 1.2, 0.9,
-//                    5.9, 5.1, 5.6,
-//                    20.2, 20.4, 21.5,
-//                    50.0, 50.1, 50.2;
-//        fcm->set_data(data);
-//        fcm->update_membership();
-//        delete fcm;
-//        EXPECT_EQ(1,1);
-//    }
+    TEST(FCMTest, TestFCMComputeMembership) {
+        FCM *fcm;
+        fcm = new FCM(2, 0.5);
+        MatrixXf* data;
+        data = new MatrixXf;
+        data->resize(4,3);
+        (*data) <<  1.0, 1.2, 0.9,
+                    5.9, 5.1, 5.6,
+                    20.2, 20.4, 21.5,
+                    50.0, 50.1, 50.2;
+        fcm->set_data(data);
+        fcm->set_num_clusters(4);
+        fcm->update_membership();
+        delete fcm;
+        EXPECT_EQ(1,1);
+    }
 
 
 //    TEST(FCMTest, TestFCMSetdata) {
@@ -76,8 +77,6 @@ namespace {
 //        cout << "TEST m_data (should be NULL): " << fcm->m_data << endl;
 //        cout << "TEST m_data is null? should be true " << (fcm->m_data == NULL) << endl;
 //    }
-
-
 
 }// namespace
 
