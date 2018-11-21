@@ -9,10 +9,7 @@ using namespace std;
 class FCM{
 
   public:
-//    FCM(double, double, bool);
     FCM(double, double);
-//    FCM(double);
-//    FCM();
     ~FCM();
 
     double update_membership(); // returns the max diff
@@ -38,7 +35,6 @@ class FCM{
     MatrixXf * m_data;
     MatrixXf * m_cluster_center;
 
-//    void init_centers();
 };
 
 #endif

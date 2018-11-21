@@ -7,16 +7,6 @@
 #include "fcm.h"
 
 
-////This is to solve the problem with gtest which somehow sets the nullptr pointers
-//FCM::FCM(double m, double epsilon, bool googletestispresent){
-//    m_epsilon = epsilon;
-//    m_m = m;
-//    m_membership = new MatrixXf;
-//    m_data = new MatrixXf;
-//    m_cluster_center = new MatrixXf;
-////    cout<<"data is set to nullptr\n";
-////    cout<<"m_data right away: "<< m_data<<endl;
-//}
 
 FCM::FCM(double m, double epsilon){
     m_epsilon = epsilon;
@@ -26,101 +16,23 @@ FCM::FCM(double m, double epsilon){
     m_cluster_center = nullptr;
     m_num_clusters = 0;
     m_num_dimensions = 0;
-//    cout<<"data is set to nullptr\n";
-//    cout<<"m_data right away: "<< m_data<<endl;
 }
 
-//FCM::FCM(double m){
-//    /*
-//     * The recommended value of m is 2
-//    */
-//    FCM(m, 1.0);
-//}
-
-//FCM::FCM(){
-//    FCM(2);
-//}
-
 FCM::~FCM(){
-    cout << __func__ <<" FCM destructor\n";
     if(m_data!=nullptr){
-        //cout << __func__ << " will be deleted m_data\n";
         delete m_data;
         m_data = nullptr;
-//        if(m_data==nullptr){
-//            cout << __func__ << " verify m_data success\n";
-//        }else{
-//            cout << __func__ << " verify m_data fail\n";
-//        }
     }
 
     if(m_membership!=nullptr){
-        //cout << __func__ << " will be deleted m_membership\n";
         delete m_membership;
         m_membership = nullptr;
-//        if(m_membership==nullptr){
-//            cout << __func__ << " verify m_membership success\n";
-//        }else{
-//            cout << __func__ << " verify m_membership fail\n";
-//        }
     }
 
     if(m_cluster_center!=nullptr){
-        //cout << __func__ << " will be deleted m_cluster_center\n";
         delete m_cluster_center;
         m_cluster_center = nullptr;
-//        if(m_cluster_center==nullptr){
-//            cout << __func__ << " verify m_cluster_center success\n";
-//        }else{
-//            cout << __func__ << " verify m_cluster_center fail\n";
-//        }
     }
-
-//    if(m_data==nullptr){
-//        //m_data
-//        cout << __func__ << " m_data is nullptr\n";
-//    }
-//    else{
-//        cout << __func__ << " will be deleted m_data\n";
-//        cout << __func__ << " m_data: \n" << m_data <<endl ;
-//        delete m_data;
-//        m_data = nullptr;
-//        if(m_data==nullptr){
-//            cout << __func__ << " verify m_data success\n";
-//        }else{
-//            cout << __func__ << " verify m_data fail\n";
-//        }
-//    }
-
-//    if(m_membership==nullptr){
-//        //m_membership
-//        cout << __func__ << " m_membership is nullptr\n";
-//    }
-//    else{
-//        cout << __func__ << " will be deleted m_membership\n";
-//        delete m_membership;
-//        m_membership = nullptr;
-//        if(m_membership==nullptr){
-//            cout << __func__ << " verify m_membership success\n";
-//        }else{
-//            cout << __func__ << " verify m_membership fail\n";
-//        }
-//    }
-
-//    if(m_cluster_center==nullptr){
-//        //m_cluster_center
-//        cout << __func__ << " m_cluster_center is nullptr\n";
-//    }
-//    else{
-//        cout << __func__ << " will be deleted m_cluster_center\n";
-//        delete m_cluster_center;
-//        m_cluster_center = nullptr;
-//        if(m_cluster_center==nullptr){
-//            cout << __func__ << " verify m_cluster_center success\n";
-//        }else{
-//            cout << __func__ << " verify m_cluster_center fail\n";
-//        }
-//    }
 }
 
 double FCM::update_membership(){
@@ -200,7 +112,6 @@ double FCM::compute_membership_point(long i, long j){
         throw std::logic_error("ERROR: number of clusters should not be zero\n");
     }
     for (k = 0; k < m_num_clusters; k++) {
-      //cout<< __func__ << " k: "<<k<<endl;
       t = this->get_dist(i, j) / this->get_dist(i, k);
       t = pow(t, p);
       sum += t;
@@ -209,7 +120,6 @@ double FCM::compute_membership_point(long i, long j){
 }
 
 void FCM::set_data(MatrixXf *data){
-    //cout << __func__ << "  " <<m_data <<endl;
     if(m_data!=nullptr){
         cout << __func__ << " data is not nullptr\n";
         delete m_data;
@@ -278,7 +188,6 @@ void FCM::set_num_clusters(long num_clusters){
         delete m_cluster_center;
     }
     m_cluster_center = new MatrixXf;
-    cout << "m_cluster_center: "<<m_cluster_center << " m_num_dimensions: "<< m_num_dimensions <<endl;
     m_cluster_center->resize(m_num_clusters, m_num_dimensions);
 }
 
