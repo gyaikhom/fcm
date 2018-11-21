@@ -4,9 +4,8 @@
 #include <iostream>
 #include <math.h>
 #include <Eigen/Dense>
+#include <float.h>
 #include "fcm.h"
-
-
 
 FCM::FCM(double m, double epsilon){
     m_epsilon = epsilon;
@@ -50,6 +49,7 @@ double FCM::update_membership(){
     for (j = 0; j < m_num_clusters; j++) {
         for (i = 0; i < m_data->rows(); i++) {
             new_uij = compute_membership_point(i, j);
+            //cout << new_uij << endl;
             diff = new_uij - (*m_membership)(i,j);
             if (diff > max_diff){
                 max_diff = diff;
@@ -113,6 +113,9 @@ double FCM::compute_membership_point(long i, long j){
     }
     for (k = 0; k < m_num_clusters; k++) {
       t = this->get_dist(i, j) / this->get_dist(i, k);
+      if(this->get_dist(i, k)==0){
+          t = (this->get_dist(i, j)+DBL_MIN) / (this->get_dist(i, k)+DBL_MIN);
+      }
       t = pow(t, p);
       sum += t;
     }
@@ -121,13 +124,11 @@ double FCM::compute_membership_point(long i, long j){
 
 void FCM::set_data(MatrixXf *data){
     if(m_data!=nullptr){
-        cout << __func__ << " data is not nullptr\n";
         delete m_data;
     }
-    if(m_membership!=nullptr){
-        cout << __func__ <<  " membership is not nullptr\n";
-        delete m_membership;
-    }
+//    if(m_membership!=nullptr){
+//        delete m_membership;
+//    }
     if(data->rows()==0){
         throw std::logic_error("ERROR: seting empty data");
     }
@@ -166,11 +167,7 @@ void FCM::init_membership(){
         throw std::logic_error("ERROR: the data should present before setting up the membership");
     }
     if(m_membership!=nullptr){
-        cout << __func__  << " membership is not nullptr (ERROR)\n";
         delete m_membership;
-    }
-    else{
-        cout << __func__  << " membership is nullptr\n";
     }
     m_membership = new MatrixXf;
     m_membership->resize(m_data->rows(), m_num_clusters);
@@ -191,7 +188,6 @@ void FCM::set_num_clusters(long num_clusters){
     m_cluster_center->resize(m_num_clusters, m_num_dimensions);
 }
 
-
 MatrixXf * FCM::get_data(){
     return m_data;
 }
@@ -199,6 +195,7 @@ MatrixXf * FCM::get_data(){
 MatrixXf * FCM::get_membership(){
     return m_membership;
 }
+
 MatrixXf * FCM::get_cluster_center(){
     return m_cluster_center;
 }
