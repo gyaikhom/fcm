@@ -4,13 +4,16 @@ CC=g++
 LIB = -pthread  
 #CFLAGS=-O2 -I /usr/local/include/eigen3
 #CFLAGS= -I /usr/local/include/eigen3
+#CFLAGS= -std=c++11 -I /usr/local/include/eigen3 -Wzero-as-null-pointer-constant
 CFLAGS= -I /usr/local/include/eigen3 -Wzero-as-null-pointer-constant
 NOMSOURCES = fcm.cpp
 SOURCES = $(NOMSOURCES) main.c
 TSOURCES = $(NOMSOURCES) tests.cpp
 
 #TLIBS = $(LIB) -lgtest
-TLIBS = $(LIB) -lgtest -Wzero-as-null-pointer-constant
+#TLIBS = $(LIB) -lgtest -Wzero-as-null-pointer-constant
+TLIBS = $(LIB) -lgtest -I /usr/local/include/eigen3  -Wzero-as-null-pointer-constant
+#TLIBS = $(LIB) -lgtest -std=c++11 -I /usr/local/include/eigen3 -Wzero-as-null-pointer-constant
 
 all :  gen fcm
 
