@@ -77,7 +77,7 @@ namespace {
         delete fcm;
     }
 
-    TEST(FCMTest, TestFCMNewdata) {
+    TEST(FCMTest, TestFCMNewExactdata) {
         FCM *fcm;
         fcm = new FCM(2, 0.5);
         MatrixXf* data;
@@ -106,12 +106,47 @@ namespace {
                     50.0, 50.1, 50.2;
         fcm->set_data(data2);
         fcm->update_membership();
-        cout << "membership: \n"<< *(fcm->get_membership()) << endl;
+        EXPECT_EQ((*(fcm->get_membership()))(0,0), (*membership)(0,0));
+        EXPECT_EQ((*(fcm->get_membership()))(1,2), (*membership)(1,2));
+        EXPECT_EQ((*(fcm->get_membership()))(2,2), (*membership)(2,2));
         delete fcm;
     }
 
-
-
+    TEST(FCMTest, TestFCMNewdata) {
+        FCM *fcm;
+        fcm = new FCM(2, 0.5);
+        MatrixXf* data;
+        data = new MatrixXf;
+        data->resize(4,3);
+        (*data) <<  1.0, 1.2, 0.9,
+                    5.9, 5.1, 5.6,
+                    20.2, 20.4, 21.5,
+                    50.0, 50.1, 50.2;
+        fcm->set_data(data);
+        fcm->set_num_clusters(4);
+        MatrixXf* membership = new MatrixXf;
+        membership->resize(data->rows(), 4);
+        (*membership) << 1, 0, 0, 0,
+                         0, 1, 0, 0,
+                         0, 0, 1, 0,
+                         0, 0, 0, 1;
+        fcm->set_membership(membership);
+        fcm->compute_centers();
+        MatrixXf* data2;
+        data2 = new MatrixXf;
+        data2->resize(4,3);
+        (*data2) <<  1.1, 1.3, 0.8,
+                    5.8, 5.2, 5.7,
+                    20.3, 20.6, 21.8,
+                    50.1, 50.3, 50.9;
+        fcm->set_data(data2);
+        fcm->update_membership();
+        //cout << "membership: \n"<< *(fcm->get_membership()) << endl;
+        EXPECT_TRUE((*(fcm->get_membership()))(0,0) > 0.99);
+        EXPECT_TRUE((*(fcm->get_membership()))(1,1) > 0.99);
+        EXPECT_TRUE((*(fcm->get_membership()))(2,2) > 0.99);
+        delete fcm;
+    }
 }// namespace
 
 int main(int argc, char **argv) {
