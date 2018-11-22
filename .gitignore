@@ -1,3 +1,5 @@
+#library
+libfcm.so*
 a.cpp
 a.out
 
