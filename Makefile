@@ -78,11 +78,7 @@ libmac:
 	$(CC) ${CFLAGS}  -dynamiclib -flat_namespace  $(NOMSOURCES) -o libfcm.so.1.0
 	
 liblinux:
-	$(CC) ${CFLAGS} -Wall -fPIC -c $(NOMSOURCES)
-	$(CC) ${CFLAGS}  -c $(NOMSOURCES)
-	$(CC) -shared -Wl,-soname,libfcm.so.1  *.o
-	#$(CC) -shared -Wl,-install_name,libfcm.so.1 -o libfcm.so.1.0  *.o
-	$(MAKE) clean
+	$(CC) $(CFLAGS) -fPIC -shared $(NOMSOURCES)  -o libfcm.so.1.0
 
 install:
 	mkdir -p  /usr/local/include/fcm
