@@ -3,7 +3,7 @@ Fuzzy c-Means Algorithm
 
 A clustering algorithm organises items into groups based on a similarity criteria. The Fuzzy c-Means algorithm is a clustering algorithm where each item may belong to more than one group (hence the word fuzzy), where the degree of membership for each item is given by a probability distribution over the clusters.
 
-In this project, we Implement the Fuzzy c-Means Algorithm. For further details, please visit my [homepage](http://yaikhom.com/2013/03/16/implementing-the-fuzzy-c-means-algorithm.html), or view the CWEB generated documentation`fcm.pdf`.
+In this project, we Implement the Fuzzy c-Means Algorithm. For further details, please view the CWEB generated documentation`fcm.pdf`.
 
 
 There are two separate programs in this project. They are:
